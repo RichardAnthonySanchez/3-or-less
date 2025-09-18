@@ -1,46 +1,97 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const fs = require("fs");
+const categoriesComponent = require("./src/components/category/categoryExtractor");
 
-module.exports = {
-  entry: {
-    app: "./src/index.js",
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: "Development",
-    }),
-  ],
-  output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
-    clean: true,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.html$/i,
-        loader: "html-loader",
-      },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: "asset/resource",
-      },
-      {
-        test: /\.(csv|tsv)$/i,
-        use: ["csv-loader"],
-      },
-      {
-        test: /\.xml$/i,
-        use: ["xml-loader"],
-      },
+async function getData() {
+  const raw = fs.readFileSync(
+    path.resolve(__dirname, "public/data/json_foods_under_3_ingr.json"),
+    "utf-8"
+  );
+  const data = JSON.parse(raw);
+  return data;
+}
+
+module.exports = async () => {
+  let data = await getData();
+  categoriesComponent.extractCategories(await data);
+  const categoriesSanitized =
+    await categoriesComponent.getCategoriesSanitized();
+  const categories = await categoriesComponent.getCategories();
+
+  // zip the two arrays together
+  const categoryPairs = categories.map((category, i) => ({
+    category, // unsanitized
+    categorySanitized: categoriesSanitized[i], // sanitized
+  }));
+
+  return {
+    entry: "./src/index.ts",
+    plugins: [
+      ...categoryPairs.map(({ category, categorySanitized }) => {
+        const productsList = categoriesComponent.getProductByCategory(category);
+
+        return new HtmlWebpackPlugin({
+          filename: `${categorySanitized}.html`, // sanitized for filename
+          templateParameters: {
+            category, // unsanitized for display / lookups
+            products: productsList,
+          },
+          template: "./src/template.html",
+        });
+      }),
+      new HtmlWebpackPlugin({
+        filename: "index.html",
+        template: "./src/template.html",
+        templateParameters: {
+          category: "all",
+          products: [{ name: "chips" }, { name: "cookies" }],
+        },
+      }),
     ],
-  },
+    output: {
+      filename: "[name].bundle.js",
+      path: path.resolve(__dirname, "dist"),
+      clean: true,
+    },
+    resolve: {
+      extensions: [".ts", ".tsx", ".js", ".json"],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.css$/i,
+          use: ["style-loader", "css-loader"],
+        },
+        /*
+      { // this object will break any imported variables in templates that aren't excluded
+        test: /\.html$/i, 
+        loader: "html-loader",
+        exclude: path.resolve(__dirname, "src", "template.html"),
+      },
+      */
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: "asset/resource",
+        },
+        {
+          test: /\.(woff|woff2|eot|ttf|otf)$/i,
+          type: "asset/resource",
+        },
+        {
+          test: /\.(csv|tsv)$/i,
+          use: ["csv-loader"],
+        },
+        {
+          test: /\.xml$/i,
+          use: ["xml-loader"],
+        },
+        {
+          test: /\.tsx?$/,
+          use: "ts-loader",
+          exclude: /node_modules/,
+        },
+      ],
+    },
+  };
 };

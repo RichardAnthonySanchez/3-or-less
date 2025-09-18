@@ -1,60 +1,22 @@
-# webpack-template
+# 3 Ingredients or Less
 
-A simple Webpack starter template for generating and processing dynamic content with separate configurations for **development** and **production**.
+A simple web application that helps users discover foods with **3 ingredients or fewer**.  
+The goal of this project is to provide a valuable resource for people seeking **clean, simple foods** — whether for health, dietary needs, or just curiosity.
 
-## Features 🚀
+---
 
-- **[HTML Webpack Plugin](https://github.com/jantimon/html-webpack-plugin)** – Templating support for generating dynamic HTML files.
-- **Asset, CSV, and XML Loaders** – Load and manage CSS, images, and structured data directly in your project.
-- **[Webpack Dev Server](https://webpack.js.org/configuration/dev-server/)** – Watch files and apply changes in real-time _without manually refreshing_ the browser.
-- **[Webpack Merge](https://github.com/survivejs/webpack-merge)** – Maintain separate configs for `development`, `production`, and `common` builds.
+## 🚀 Features
 
-## Project Structure 📂
+- Browse branded foods with only 3 ingredients or less.
+- Lightweight, simple UI (no sign-ups or accounts required).
+- Built locally with **Webpack** (future deployment planned for GitHub Pages as a static site).
 
-```
-├── webpack.common.js   # Shared configuration
-├── webpack.dev.js      # Development config
-├── webpack.prod.js     # Production config
-├── package.json
-├── /src
-│   ├── index.js        # Entry point
-│   └── index.html      # Template file
-└── /dist               # Bundled output (generated)
-```
+---
 
-## Scripts 📜
+## 🛠️ Installation (Local Development)
 
-```bash
-# Start development server
-npm start
-
-# Build for production
-npm run build
-```
-
-## Getting Started ⚡
-
-1. Clone this repository:
-
+1. **Clone this repository**
    ```bash
-   git clone <your-repo-url>
-   cd <your-repo-folder>
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Run the dev server:
-
-   ```bash
-   npm start
-   ```
-
-4. Build for production:
-
-   ```bash
-   npm run build
+   git clone https://github.com/richardanthonysanchez/3-or-less.git
+   cd 3-ingredients-or-less
    ```
