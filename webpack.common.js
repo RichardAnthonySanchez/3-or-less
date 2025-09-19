@@ -14,6 +14,7 @@ async function getData() {
 
 module.exports = async () => {
   let data = await getData();
+  console.log(data.length);
   categoriesComponent.extractCategories(await data);
   const categoriesSanitized =
     await categoriesComponent.getCategoriesSanitized();
@@ -37,15 +38,26 @@ module.exports = async () => {
             category, // unsanitized for display / lookups
             products: productsList,
           },
-          template: "./src/template.html",
+          template: "./src/assets/category-template.html",
+        });
+      }),
+      ...data.map((product) => {
+        return new HtmlWebpackPlugin({
+          filename: `${product.gtin_upc}.html`,
+          template: "./src/assets/product-template.html",
+          templateParameters: {
+            title: `${product.brand_name} ${product.brand_owner} ${product.subbrand_name}`,
+            category: product.branded_food_category,
+            ingredients: product.ingredients,
+            serving: product.household_serving_fulltext,
+          },
         });
       }),
       new HtmlWebpackPlugin({
         filename: "index.html",
-        template: "./src/template.html",
+        template: "./src/assets/template.html",
         templateParameters: {
-          category: "all",
-          products: [{ name: "chips" }, { name: "cookies" }],
+          title: "homepage",
         },
       }),
     ],

@@ -8,7 +8,11 @@
     <h1><%= category %></h1>
     <ul>
       <% products.forEach(function (p) { %>
-      <li><%= JSON.stringify(p) %></li>
+      <li>
+        <a href="/<%= p.gtin_upc ? p.gtin_upc : '' %>.html"
+          ><%= JSON.stringify(p) %></a
+        >
+      </li>
       <% }); %>
     </ul>
   </body>

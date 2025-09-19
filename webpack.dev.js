@@ -10,7 +10,11 @@ module.exports = async () => {
     mode: "development",
     devtool: "eval-source-map",
     devServer: {
-      watchFiles: ["./src/template.html"],
+      watchFiles: [
+        "./src/assets/category-template.html",
+        "./src/assets/template.html",
+        "./src/assets/product-template.html",
+      ],
       static: {
         directory: path.join(__dirname, "public"),
       },
