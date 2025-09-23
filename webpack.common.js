@@ -27,7 +27,11 @@ module.exports = async () => {
   }));
 
   return {
-    entry: "./src/index.ts",
+    entry: {
+      index: "./src/index.ts",
+      category: "./src/category.ts",
+      product: "./src/product.ts",
+    },
     plugins: [
       ...categoryPairs.map(({ category, categorySanitized }) => {
         const productsList = categoriesComponent.getProductByCategory(category);
@@ -39,12 +43,14 @@ module.exports = async () => {
             products: productsList,
           },
           template: "./src/assets/category-template.html",
+          chunks: ["category"],
         });
       }),
       ...data.map((product) => {
         return new HtmlWebpackPlugin({
           filename: `${product.gtin_upc}.html`,
           template: "./src/assets/product-template.html",
+          chunks: ["product"],
           templateParameters: {
             title: `${product.brand_name} ${product.brand_owner} ${product.subbrand_name}`,
             category: product.branded_food_category,
@@ -56,6 +62,7 @@ module.exports = async () => {
       new HtmlWebpackPlugin({
         filename: "index.html",
         template: "./src/assets/template.html",
+        chunks: ["index"],
         templateParameters: {
           title: "homepage",
         },
