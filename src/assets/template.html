@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
+
     <title><%= title %></title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .header-title {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 900;
+      }
+    </style>
   </head>
+
   <body>
-    <h1><%= title %></h1>
+    <div
+      id="header-container"
+      container
+      class="header mt-12 flex flex-row items-center justify-center h-32 p-4 max-w-3xl mx-auto"
+    >
+      <div class="header-text ml-4">
+        <h1
+          class="header-title text-4xl md:text-5xl font-extrabold text-primary"
+        >
+          <%= title %>
+        </h1>
+        <p class="text-xl md:text-2xl mt-4">
+          🔍 Find simple alternatives to your favorite foods
+        </p>
+      </div>
+    </div>
   </body>
 </html>

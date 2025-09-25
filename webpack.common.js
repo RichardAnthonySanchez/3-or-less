@@ -33,6 +33,7 @@ module.exports = async () => {
       product: "./src/product.ts",
     },
     plugins: [
+      /*
       ...categoryPairs.map(({ category, categorySanitized }) => {
         const productsList = categoriesComponent.getProductByCategory(category);
 
@@ -46,6 +47,7 @@ module.exports = async () => {
           chunks: ["category"],
         });
       }),
+      */
       ...data.map((product) => {
         return new HtmlWebpackPlugin({
           filename: `${product.gtin_upc}.html`,
@@ -64,7 +66,7 @@ module.exports = async () => {
         template: "./src/assets/template.html",
         chunks: ["index"],
         templateParameters: {
-          title: "homepage",
+          title: "3 Ingredients or Less",
         },
       }),
     ],
@@ -80,7 +82,7 @@ module.exports = async () => {
       rules: [
         {
           test: /\.css$/i,
-          use: ["style-loader", "css-loader"],
+          use: ["style-loader", "css-loader", "postcss-loader"],
         },
         /*
       { // this object will break any imported variables in templates that aren't excluded
@@ -90,7 +92,12 @@ module.exports = async () => {
       },
       */
         {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          test: /\.svg$/i,
+          type: "asset/source",
+        },
+
+        {
+          test: /\.(png|jpe?g|gif)$/i,
           type: "asset/resource",
         },
         {
