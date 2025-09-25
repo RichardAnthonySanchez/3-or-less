@@ -18,5 +18,5 @@ The goal of this project is to provide a valuable resource for people seeking **
 1. **Clone this repository**
    ```bash
    git clone https://github.com/richardanthonysanchez/3-or-less.git
-   cd 3-ingredients-or-less
+   cd 3-or-less
    ```
