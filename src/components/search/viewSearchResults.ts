@@ -18,7 +18,7 @@ export function viewSearchResults(response: Product[]) {
     li.className = "card-body p-2";
 
     const a = document.createElement("a");
-    a.href = `/${product.gtin_upc}.html`;
+    a.href = `./${product.gtin_upc}.html`;
     a.className =
       "card w-full border-4 border-dashed border-primary text-gray-700 shadow-md hover:shadow-lg hover:bg-primary hover:border-gray-700 transition-shadow duration-200 p-6 rounded-lg";
     a.style.display = "block";
