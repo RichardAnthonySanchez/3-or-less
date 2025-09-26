@@ -34,13 +34,13 @@ const categoriesComponent = (function () {
         });
       });
     },
-    getCategoriesSanitized: async function () {
+    getCategoriesSanitized: function () {
       return Array.from(categoriesSanitized);
     },
-    getCategories: async function () {
+    getCategories: function () {
       return Array.from(categories);
     },
-    getDbProducts: async function () {
+    getDbProducts: function () {
       return DbProducts;
     },
     getProductByCategory: function (cat) {
