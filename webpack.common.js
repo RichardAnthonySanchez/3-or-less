@@ -56,10 +56,13 @@ module.exports = {
         template: "./src/assets/product-template.html",
         chunks: ["product"],
         templateParameters: {
-          title: `${product.brand_name} ${product.brand_owner} ${product.subbrand_name}`,
+          title: `${product.product_name} by ${product.brand_owner}`,
           category: product.branded_food_category,
           ingredients: product.ingredients,
           serving: product.household_serving_fulltext,
+          calories: product.energy_kcal_per_100g,
+          fat: product.fat_per_100g,
+          saturated: product.saturated_fat_per_100g,
         },
       });
     }),

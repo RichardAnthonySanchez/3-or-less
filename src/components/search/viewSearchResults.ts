@@ -29,7 +29,7 @@ export function viewSearchResults(response: Product[]) {
     a.style.display = "block";
 
     // Destructure relevant fields
-    const { brand_name, subbrand_name, brand_owner } = product;
+    const { product_name, brand_owner } = product;
 
     // Helper to title-case brand + subbrand
     const toTitleCase = (str: string) =>
@@ -122,9 +122,7 @@ export function viewSearchResults(response: Product[]) {
     // Bold title: brand + subbrand
     const title = document.createElement("h2");
     title.className = "card-title font-bold text-4xl md:text-4xl lg:text-4xl";
-    title.textContent = toTitleCase(
-      `${brand_name} ${subbrand_name ?? ""}`.trim()
-    );
+    title.textContent = toTitleCase((product_name ?? "").trim());
     textContainer.appendChild(title);
 
     // Brand owner footnote, all caps
