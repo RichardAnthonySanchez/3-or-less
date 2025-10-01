@@ -28,7 +28,6 @@ const categoryPairs = categories.map((category, i) => ({
   categorySanitized: categoriesSanitized[i], // sanitized
 }));
 
-// --- now export plain object ---
 module.exports = {
   entry: {
     index: "./src/index.ts",

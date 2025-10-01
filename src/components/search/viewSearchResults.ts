@@ -19,7 +19,9 @@ export function viewSearchResults(response: Product[]) {
 
     const a = document.createElement("a");
 
-    const basePath = "/3-or-less/"; //github pages basepath
+    const basePath =
+      process.env.NODE_ENV === "production" ? "/3-or-less/" : "./";
+
     a.href = `${basePath}${product.gtin_upc}.html`;
 
     a.className =
