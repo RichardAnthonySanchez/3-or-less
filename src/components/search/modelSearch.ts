@@ -7,10 +7,11 @@ export function modelSearch(query: string, products: Product[]) {
 
   return products.filter((product) => {
     const searchableValues = [
-      product.subbrand_name,
-      product.brand_name,
-      product.brand_owner,
-      product.branded_food_category,
+      product.product_name,
+      //product.subbrand_name,
+      //product.brand_name,
+      //product.brand_owner,
+      //product.branded_food_category,
       product.ingredients,
       //product.gtin_upc.toString(),
     ];
